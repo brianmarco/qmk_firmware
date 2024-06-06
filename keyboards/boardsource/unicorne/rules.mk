@@ -1,3 +1,4 @@
 SERIAL_DRIVER = vendor
 POINTING_DEVICE_DRIVER = analog_joystick
 COMBO_ENABLE = yes
+CONSOLE_ENABLE = yes

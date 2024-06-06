@@ -14,7 +14,7 @@ bool oled_task_kb(void) {
     if (!oled_task_user()) {
         return false;
     }
-    if (is_keyboard_master()) {
+    if (is_keyboard_left()) {
         switch (get_highest_layer(layer_state)) {
             case 0:
                 oled_write_raw(layer_zero, sizeof(layer_zero));

@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+#include "print.h"
 
 enum layer_names { _BASE, _SYM_NAV, _FN_NUM, _MISC };
 
@@ -69,36 +70,61 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               _______ , _______ , _______ ,     _______ , KC_0 , KC_DOT
 ),
 
-//    ┌─────────┬─────┬─────┬──────┬──────┬─────┐   ┌─────┬─────────┬─────────┬─────────┬─────────┬──────────────────┐
-//    │ QK_BOOT │     │     │      │      │     │   │     │         │         │         │         │     RGB_TOG      │
-//    ├─────────┼─────┼─────┼──────┼──────┼─────┤   ├─────┼─────────┼─────────┼─────────┼─────────┼──────────────────┤
-//    │         │     │     │ btn2 │ btn1 │     │   │     │ RGB_HUI │ RGB_VAI │ RGB_SAI │ RGB_SPI │ RGB_MODE_FORWARD │
-//    ├─────────┼─────┼─────┼──────┼──────┼─────┤   ├─────┼─────────┼─────────┼─────────┼─────────┼──────────────────┤
-//    │         │     │     │      │      │     │   │     │ RGB_HUD │ RGB_VAD │ RGB_SAD │ RGB_SPD │ RGB_MODE_REVERSE │
-//    └─────────┴─────┴─────┼──────┼──────┼─────┤   ├─────┼─────────┼─────────┼─────────┴─────────┴──────────────────┘
-//                          │      │      │     │   │     │         │         │
-//                          └──────┴──────┴─────┘   └─────┴─────────┴─────────┘
+//    ┌─────────┬─────┬─────┬──────┬──────┬─────┐   ┌─────────┬─────────┬─────────┬─────────┬─────────┬──────────────────┐
+//    │ QK_BOOT │     │     │      │      │     │   │ RGB_TOG │         │         │         │         │     QK_BOOT      │
+//    ├─────────┼─────┼─────┼──────┼──────┼─────┤   ├─────────┼─────────┼─────────┼─────────┼─────────┼──────────────────┤
+//    │         │     │     │ btn2 │ btn1 │     │   │         │ RGB_HUI │ RGB_VAI │ RGB_SAI │ RGB_SPI │ RGB_MODE_FORWARD │
+//    ├─────────┼─────┼─────┼──────┼──────┼─────┤   ├─────────┼─────────┼─────────┼─────────┼─────────┼──────────────────┤
+//    │         │     │     │      │      │     │   │         │ RGB_HUD │ RGB_VAD │ RGB_SAD │ RGB_SPD │ RGB_MODE_REVERSE │
+//    └─────────┴─────┴─────┼──────┼──────┼─────┤   ├─────────┼─────────┼─────────┼─────────┴─────────┴──────────────────┘
+//                          │      │      │     │   │         │         │         │
+//                          └──────┴──────┴─────┘   └─────────┴─────────┴─────────┘
 [_MISC] = LAYOUT_split_3x6_3(
-  QK_BOOT , _______ , _______ , _______    , _______    , _______ ,     _______ , _______ , _______ , _______ , _______ , RGB_TOG         ,
+  QK_BOOT , _______ , _______ , _______    , _______    , _______ ,     RGB_TOG , _______ , _______ , _______ , _______ , QK_BOOT         ,
   _______ , _______ , _______ , KC_MS_BTN2 , KC_MS_BTN1 , _______ ,     _______ , RGB_HUI , RGB_VAI , RGB_SAI , RGB_SPI , RGB_MODE_FORWARD,
   _______ , _______ , _______ , _______    , _______    , _______ ,     _______ , RGB_HUD , RGB_VAD , RGB_SAD , RGB_SPD , RGB_MODE_REVERSE,
                                 _______    , _______    , _______ ,     _______ , _______ , _______
 )
 };
 
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  debug_matrix=true;
+  //debug_keyboard=true;
+  //debug_mouse=true;
+}
+
+
 enum combos {
-    AO_B
+    TMUX_LEADER
 };
 
-const uint16_t PROGMEM pinky_combo[] = {KC_A, KC_O, COMBO_END};
+const uint16_t PROGMEM tmux_leader_combo[] = {KC_A, KC_O, COMBO_END};
+const uint16_t PROGMEM tmux_leader_combo_2[] = {KC_LSFT, KC_RSFT, COMBO_END};
 
-combo_t key_combos[] = {[AO_B] = COMBO(pinky_combo, C(KC_B))};
-
+combo_t key_combos[] = {[TMUX_LEADER] = COMBO(tmux_leader_combo, LCTL(KC_B))};
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     if (!layer_state_is(_MISC)) {
-        mouse_report.h = mouse_report.x;
-        mouse_report.v = mouse_report.y;
+        if (mouse_report.y > 0) {
+            SEND_STRING(SS_TAP(X_DOWN));
+        }
+
+        if (mouse_report.y < 0) {
+            SEND_STRING(SS_TAP(X_UP));
+        }
+
+        if (mouse_report.x < 0) {
+            SEND_STRING(SS_TAP(X_LEFT));
+        }
+
+        if (mouse_report.x > 0) {
+            SEND_STRING(SS_TAP(X_RIGHT));
+        }
+
+        mouse_report.h = 0;
+        mouse_report.v = 0;
         mouse_report.x = 0;
         mouse_report.y = 0;
     }
