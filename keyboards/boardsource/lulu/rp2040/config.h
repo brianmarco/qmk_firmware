@@ -9,3 +9,7 @@
 #define I2C_DRIVER I2CD1
 #define I2C1_SDA_PIN GP22
 #define I2C1_SCL_PIN GP23
+// #define EE_HANDS
+// #define MASTER_LEFT
+// #define SPLIT_USB_DETECT
+// #define SPLIT_WATCHDOG_ENABLE
