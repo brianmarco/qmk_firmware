@@ -149,14 +149,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    ├──────┼──────┼──────┼──────┼──────┼──────┼─────┐   ┌─────┼──────┼──────┼──────┼─────┼─────┼──────┤
 //    │      │ S(5) │ S(4) │  [   │  ]   │  `   │     │   │     │  up  │ left │ pgup │     │     │ vold │
 //    └──────┴──────┼──────┼──────┼──────┼──────┼─────┘   └─────┼──────┼──────┼──────┼─────┼─────┴──────┘
-//                  │ S(,) │ S(.) │  .   │      │               │ del  │      │      │     │
+//                  │      │ S(,) │ S(.) │  .   │               │ del  │      │      │     │
 //                  └──────┴──────┴──────┴──────┘               └──────┴──────┴──────┴─────┘
 [_SYM_NAV] = LAYOUT(
-  KC_ESC  , KC_1    , KC_2       , KC_3       , KC_4       , KC_5       ,                         KC_6    , KC_7     , KC_8    , KC_9    , KC_0    , KC_GRV ,
-  KC_PSCR , S(KC_1) , S(KC_2)    , S(KC_LBRC) , S(KC_RBRC) , S(KC_QUOT) ,                         KC_DOWN , KC_RIGHT , KC_PGDN , _______ , _______ , KC_MUTE,
-  _______ , S(KC_3) , S(KC_6)    , S(KC_9)    , S(KC_0)    , KC_QUOT    ,                         _______ , _______  , _______ , _______ , _______ , KC_VOLU,
-  _______ , S(KC_5) , S(KC_4)    , KC_LBRC    , KC_RBRC    , KC_GRV     , _______ ,     _______ , KC_UP   , KC_LEFT  , KC_PGUP , _______ , _______ , KC_VOLD,
-                      S(KC_COMM) , S(KC_DOT)  , KC_DOT     , _______    ,                         KC_DEL  , _______  , _______ , _______
+  KC_ESC  , KC_1    , KC_2    , KC_3       , KC_4       , KC_5       ,                         KC_6    , KC_7     , KC_8    , KC_9    , KC_0    , KC_GRV ,
+  KC_PSCR , S(KC_1) , S(KC_2) , S(KC_LBRC) , S(KC_RBRC) , S(KC_QUOT) ,                         KC_DOWN , KC_RIGHT , KC_PGDN , _______ , _______ , KC_MUTE,
+  _______ , S(KC_3) , S(KC_6) , S(KC_9)    , S(KC_0)    , KC_QUOT    ,                         _______ , _______  , _______ , _______ , _______ , KC_VOLU,
+  _______ , S(KC_5) , S(KC_4) , KC_LBRC    , KC_RBRC    , KC_GRV     , _______ ,     _______ , KC_UP   , KC_LEFT  , KC_PGUP , _______ , _______ , KC_VOLD,
+                      _______ , S(KC_COMM) , S(KC_DOT)  , KC_DOT     ,                         KC_DEL  , _______  , _______ , _______
 ),
 
 //    ┌─────────┬─────┬─────┬──────┬──────┬─────┐               ┌─────────┬─────────┬─────────┬─────────┬─────────┬──────────────────┐
