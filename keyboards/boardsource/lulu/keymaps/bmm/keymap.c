@@ -3,11 +3,7 @@
 
 #include QMK_KEYBOARD_H
 
-// enum layer_names { _BASE, _SYM_NAV, _FN_NUM, _MISC, _QWERTY };
-// enum layer_names { _QWERTY, _LOWER, _RAISE, _ADJUST, _BASE, _FN_NUM, _SYM_NAV, _MISC };
 enum layer_names { _BASE, _FN_NUM, _SYM_NAV, _MISC, _QWERTY, _LOWER, _RAISE, _ADJUST };
-
-const uint16_t PROGMEM BMM_KC_TMUX_LEADER = LCTL(KC_B);
 
 const uint16_t PROGMEM BMM_B = MT(MOD_LCTL, KC_B);
 const uint16_t PROGMEM BMM_J = MT(MOD_RCTL, KC_J);
@@ -195,3 +191,21 @@ void keyboard_post_init_user(void) {
     // debug_keyboard=true;
     // debug_mouse=true;
 }
+
+enum combos { TMUX_LEADER, COPY, PASTE, QWERTY };
+
+const uint16_t PROGMEM tmux_leader_combo[] = {BMM_T, BMM_N, COMBO_END};
+const uint16_t PROGMEM copy_combo[]        = {BMM_T, BMM_G, COMBO_END};
+const uint16_t PROGMEM paste_combo[]       = {BMM_M, BMM_N, COMBO_END};
+const uint16_t PROGMEM qwerty_combo[]      = {KC_TAB, KC_BSLS, COMBO_END};
+
+const uint16_t PROGMEM BMM_KC_TMUX_LEADER = LCTL(KC_B);
+
+// clang-format off
+combo_t key_combos[] = {
+    [TMUX_LEADER] = COMBO(tmux_leader_combo, BMM_KC_TMUX_LEADER),
+    [COPY] = COMBO(copy_combo, KC_COPY),
+    [PASTE] = COMBO(paste_combo, KC_PASTE),
+    [QWERTY] = COMBO(qwerty_combo, TG(_QWERTY))
+};
+// clang-format on
