@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    ┌─────┬─────┬────┬─────┬─────┬─────┐   ┌─────┬───┬───┬───┬─────┬─────┐
 //    │ f11 │ f10 │ f9 │ f8  │ f7  │     │   │     │ 7 │ 8 │ 9 │     │     │
 //    ├─────┼─────┼────┼─────┼─────┼─────┤   ├─────┼───┼───┼───┼─────┼─────┤
-//    │ f12 │     │ f6 │ f5  │ f4  │     │   │     │ 4 │ 5 │ 6 │     │     │
+//    │ f12 │     │ f6 │ f5  │ f4  │     │   │  0  │ 4 │ 5 │ 6 │     │     │
 //    ├─────┼─────┼────┼─────┼─────┼─────┤   ├─────┼───┼───┼───┼─────┼─────┤
 //    │ f13 │     │ f3 │ f2  │ f1  │     │   │     │ 1 │ 2 │ 3 │     │     │
 //    └─────┴─────┴────┼─────┼─────┼─────┤   ├─────┼───┼───┼───┴─────┴─────┘
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                     └─────┴─────┴─────┘   └─────┴───┴───┘
 [_FN_NUM] = LAYOUT_split_3x6_3(
   KC_F11 , KC_F10  , KC_F9 , KC_F8   , KC_F7   , _______ ,     _______ , KC_7 , KC_8   , KC_9 , _______ , _______,
-  KC_F12 , _______ , KC_F6 , KC_F5   , KC_F4   , _______ ,     _______ , KC_4 , KC_5   , KC_6 , _______ , _______,
+  KC_F12 , _______ , KC_F6 , KC_F5   , KC_F4   , _______ ,     KC_0    , KC_4 , KC_5   , KC_6 , _______ , _______,
   KC_F13 , _______ , KC_F3 , KC_F2   , KC_F1   , _______ ,     _______ , KC_1 , KC_2   , KC_3 , _______ , _______,
                              _______ , _______ , _______ ,     _______ , KC_0 , KC_DOT
 ),
@@ -149,6 +149,7 @@ enum combos {
     QWERTY
 };
 
+#ifdef COMBO_ENABLE
 const uint16_t PROGMEM tmux_leader_combo[] = {BMM_T, BMM_N, COMBO_END};
 const uint16_t PROGMEM copy_combo[] = {BMM_T, BMM_G, COMBO_END};
 const uint16_t PROGMEM paste_combo[] = {BMM_M, BMM_N, COMBO_END};
@@ -160,6 +161,7 @@ combo_t key_combos[] = {
     [PASTE] = COMBO(paste_combo, KC_PASTE),
     [QWERTY] = COMBO(qwerty_combo, TG(_QWERTY))
 };
+#endif
 
 float qwerty_song[][2] = SONG(QWERTY_SOUND);
 float colemak_song[][2] = SONG(COLEMAK_SOUND);
