@@ -29,6 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum layer_names { _BASE, _SYM_NAV, _FN_NUM, _MISC, _QWERTY };
 
+enum combos { TAB, TMUX_LEADER, ESC, ENTER, EQ, MINS, QWERTY };
+
 const uint16_t PROGMEM BMM_KC_TMUX_LEADER = LCTL(KC_B);
 
 const uint16_t PROGMEM BMM_B = MT(MOD_LCTL, KC_B);
@@ -69,35 +71,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_LEFT , BMM_RIGHT , BMM_SPC ,     BMM_BSPC , BMM_DOWN , KC_UP
 ),
 
-//    ┌──────┬──────┬──────┬──────┬──────┬──────┐   ┌──────┬──────┬──────┬─────┬─────┬──────┐
-//    │ pscr │ S(1) │ S(2) │ S([) │ S(]) │ S(') │   │ down │ rght │ pgdn │     │     │ mute │
-//    ├──────┼──────┼──────┼──────┼──────┼──────┤   ├──────┼──────┼──────┼─────┼─────┼──────┤
-//    │      │ S(3) │ S(6) │ S(9) │ S(0) │  '   │   │      │      │      │     │     │ volu │
-//    ├──────┼──────┼──────┼──────┼──────┼──────┤   ├──────┼──────┼──────┼─────┼─────┼──────┤
-//    │      │ S(5) │ S(4) │  [   │  ]   │  `   │   │  up  │ left │ pgup │     │     │ vold │
-//    └──────┴──────┴──────┼──────┼──────┼──────┤   ├──────┼──────┼──────┼─────┴─────┴──────┘
-//                         │ S(,) │ S(.) │  .   │   │ del  │      │      │
+//    ┌──────┬──────┬──────┬──────┬──────┬──────┐   ┌──────┬──────┬──────┬─────┬──────┬─────┐
+//    │ pscr │ S(1) │ S(2) │ S([) │ S(]) │ S(') │   │ down │ rght │      │     │ mute │     │
+//    ├──────┼──────┼──────┼──────┼──────┼──────┤   ├──────┼──────┼──────┼─────┼──────┼─────┤
+//    │      │ S(3) │ S(6) │ S(9) │ S(0) │  '   │   │      │      │      │     │ volu │     │
+//    ├──────┼──────┼──────┼──────┼──────┼──────┤   ├──────┼──────┼──────┼─────┼──────┼─────┤
+//    │      │ S(5) │ S(4) │  [   │  ]   │  `   │   │  up  │ left │      │     │ vold │     │
+//    └──────┴──────┴──────┼──────┼──────┼──────┤   ├──────┼──────┼──────┼─────┴──────┴─────┘
+//                         │ S(,) │ S(.) │  .   │   │ del  │ pgdn │ pgup │
 //                         └──────┴──────┴──────┘   └──────┴──────┴──────┘
 [_SYM_NAV] = LAYOUT_split_3x6_3(
-  KC_PSCR , S(KC_1) , S(KC_2) , S(KC_LBRC) , S(KC_RBRC) , S(KC_QUOT) ,     KC_DOWN , KC_RIGHT , KC_PGDN , _______ , _______ , KC_MUTE,
-  _______ , S(KC_3) , S(KC_6) , S(KC_9)    , S(KC_0)    , KC_QUOT    ,     _______ , _______  , _______ , _______ , _______ , KC_VOLU,
-  _______ , S(KC_5) , S(KC_4) , KC_LBRC    , KC_RBRC    , KC_GRV     ,     KC_UP   , KC_LEFT  , KC_PGUP , _______ , _______ , KC_VOLD,
-                                S(KC_COMM) , S(KC_DOT)  , KC_DOT     ,     KC_DEL  , _______  , _______
+  KC_PSCR , S(KC_1) , S(KC_2) , S(KC_LBRC) , S(KC_RBRC) , S(KC_QUOT) ,     KC_DOWN , KC_RIGHT , _______ , _______ , KC_MUTE , _______,
+  _______ , S(KC_3) , S(KC_6) , S(KC_9)    , S(KC_0)    , KC_QUOT    ,     _______ , _______  , _______ , _______ , KC_VOLU , _______,
+  _______ , S(KC_5) , S(KC_4) , KC_LBRC    , KC_RBRC    , KC_GRV     ,     KC_UP   , KC_LEFT  , _______ , _______ , KC_VOLD , _______,
+                                S(KC_COMM) , S(KC_DOT)  , KC_DOT     ,     KC_DEL  , KC_PGDN  , KC_PGUP
 ),
 
-//    ┌─────┬─────┬────┬─────┬─────┬─────┐   ┌─────┬───┬───┬───┬─────┬─────┐
-//    │ f11 │ f10 │ f9 │ f8  │ f7  │     │   │     │ 7 │ 8 │ 9 │     │     │
-//    ├─────┼─────┼────┼─────┼─────┼─────┤   ├─────┼───┼───┼───┼─────┼─────┤
-//    │ f12 │     │ f6 │ f5  │ f4  │     │   │  0  │ 4 │ 5 │ 6 │     │     │
-//    ├─────┼─────┼────┼─────┼─────┼─────┤   ├─────┼───┼───┼───┼─────┼─────┤
-//    │ f13 │     │ f3 │ f2  │ f1  │     │   │     │ 1 │ 2 │ 3 │     │     │
-//    └─────┴─────┴────┼─────┼─────┼─────┤   ├─────┼───┼───┼───┴─────┴─────┘
+//    ┌─────┬─────┬────┬─────┬─────┬─────┐   ┌─────┬───┬───┬───┬───┬─────┐
+//    │     │ f10 │ f9 │ f8  │ f7  │     │   │     │ 7 │ 8 │ 9 │ \ │     │
+//    ├─────┼─────┼────┼─────┼─────┼─────┤   ├─────┼───┼───┼───┼───┼─────┤
+//    │     │ f11 │ f6 │ f5  │ f4  │     │   │  0  │ 4 │ 5 │ 6 │ + │     │
+//    ├─────┼─────┼────┼─────┼─────┼─────┤   ├─────┼───┼───┼───┼───┼─────┤
+//    │     │ f12 │ f3 │ f2  │ f1  │     │   │     │ 1 │ 2 │ 3 │ - │     │
+//    └─────┴─────┴────┼─────┼─────┼─────┤   ├─────┼───┼───┼───┴───┴─────┘
 //                     │     │     │     │   │     │ 0 │ . │
 //                     └─────┴─────┴─────┘   └─────┴───┴───┘
 [_FN_NUM] = LAYOUT_split_3x6_3(
-  KC_F11 , KC_F10  , KC_F9 , KC_F8   , KC_F7   , _______ ,     _______ , KC_7 , KC_8   , KC_9 , _______ , _______,
-  KC_F12 , _______ , KC_F6 , KC_F5   , KC_F4   , _______ ,     KC_0    , KC_4 , KC_5   , KC_6 , _______ , _______,
-  KC_F13 , _______ , KC_F3 , KC_F2   , KC_F1   , _______ ,     _______ , KC_1 , KC_2   , KC_3 , _______ , _______,
+  _______ , KC_F10 , KC_F9 , KC_F8   , KC_F7   , _______ ,     _______ , KC_7 , KC_8   , KC_9 , KC_BSLS , _______,
+  _______ , KC_F11 , KC_F6 , KC_F5   , KC_F4   , _______ ,     KC_0    , KC_4 , KC_5   , KC_6 , KC_PLUS , _______,
+  _______ , KC_F12 , KC_F3 , KC_F2   , KC_F1   , _______ ,     _______ , KC_1 , KC_2   , KC_3 , KC_MINS , _______,
                              _______ , _______ , _______ ,     _______ , KC_0 , KC_DOT
 ),
 
@@ -136,29 +138,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
-  debug_enable=true;
-  debug_matrix=true;
+  // debug_enable=true;
+  // debug_matrix=true;
   //debug_keyboard=true;
   //debug_mouse=true;
 }
 
-enum combos {
-    TMUX_LEADER,
-    COPY,
-    PASTE,
-    QWERTY
-};
-
 #ifdef COMBO_ENABLE
-const uint16_t PROGMEM tmux_leader_combo[] = {BMM_T, BMM_N, COMBO_END};
-const uint16_t PROGMEM copy_combo[] = {BMM_T, BMM_G, COMBO_END};
-const uint16_t PROGMEM paste_combo[] = {BMM_M, BMM_N, COMBO_END};
-const uint16_t PROGMEM qwerty_combo[] = {KC_TAB, KC_BSLS, COMBO_END};
+const uint16_t PROGMEM tab_combo[] = {KC_F, KC_P, COMBO_END};
+const uint16_t PROGMEM tmux_leader_combo[] = {KC_L, KC_U, COMBO_END};
+const uint16_t PROGMEM esc_combo[] = {BMM_S, BMM_T, COMBO_END};
+const uint16_t PROGMEM enter_combo[] = {BMM_N, BMM_E, COMBO_END};
+const uint16_t PROGMEM eq_combo[] = {KC_C, KC_D, COMBO_END};
+const uint16_t PROGMEM mins_combo[] = {KC_H, KC_COMM, COMBO_END};
+const uint16_t PROGMEM qwerty_combo[] = {KC_LEFT, KC_UP, COMBO_END};
 
 combo_t key_combos[] = {
+    [TAB] = COMBO(tab_combo, KC_TAB),
     [TMUX_LEADER] = COMBO(tmux_leader_combo, BMM_KC_TMUX_LEADER),
-    [COPY] = COMBO(copy_combo, KC_COPY),
-    [PASTE] = COMBO(paste_combo, KC_PASTE),
+    [ESC] = COMBO(esc_combo, KC_ESC),
+    [ENTER] = COMBO(enter_combo, KC_ENT),
+    [EQ] = COMBO(eq_combo, KC_EQL),
+    [MINS] = COMBO(mins_combo, KC_MINS),
     [QWERTY] = COMBO(qwerty_combo, TG(_QWERTY))
 };
 #endif
@@ -191,33 +192,33 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 
-mouse_xy_report_t prev_x;
-mouse_xy_report_t prev_y;
+// mouse_xy_report_t prev_x;
+// mouse_xy_report_t prev_y;
 
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    if (!layer_state_is(_MISC)) {
-        if (mouse_report.x > 14 && mouse_report.x != prev_x) {
-            SEND_STRING(SS_TAP(X_RIGHT));
-            // prev_x = mouse_report.x;
-        }
-        else if (mouse_report.x < -14 && mouse_report.x != prev_x) {
-            SEND_STRING(SS_TAP(X_LEFT));
-            // prev_x = mouse_report.x;
-        }
-        else if (mouse_report.y == 15 && mouse_report.y != prev_y) {
-            SEND_STRING(SS_TAP(X_DOWN));
-            // prev_y = mouse_report.y;
-        }
-        else if (mouse_report.y == -15 && mouse_report.y != prev_y) {
-            SEND_STRING(SS_TAP(X_UP));
-            // prev_y = mouse_report.y;
-        }
-
-        mouse_report.x = 0;
-        mouse_report.y = 0;
-        mouse_report.h = 0;
-        mouse_report.v = 0;
-    }
-
-    return mouse_report;
-}
+// report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+//     if (!layer_state_is(_MISC)) {
+//         if (mouse_report.x > 14 && mouse_report.x != prev_x) {
+//             SEND_STRING(SS_TAP(X_RIGHT));
+//             // prev_x = mouse_report.x;
+//         }
+//         else if (mouse_report.x < -14 && mouse_report.x != prev_x) {
+//             SEND_STRING(SS_TAP(X_LEFT));
+//             // prev_x = mouse_report.x;
+//         }
+//         else if (mouse_report.y == 15 && mouse_report.y != prev_y) {
+//             SEND_STRING(SS_TAP(X_DOWN));
+//             // prev_y = mouse_report.y;
+//         }
+//         else if (mouse_report.y == -15 && mouse_report.y != prev_y) {
+//             SEND_STRING(SS_TAP(X_UP));
+//             // prev_y = mouse_report.y;
+//         }
+//
+//         mouse_report.x = 0;
+//         mouse_report.y = 0;
+//         mouse_report.h = 0;
+//         mouse_report.v = 0;
+//     }
+//
+//     return mouse_report;
+// }
