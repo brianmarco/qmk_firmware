@@ -1,8 +1,31 @@
 // Copyright 2022 Cole Smith <cole@boadsource.xyz>
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+/*
+qmk:json:start
+{
+  "layout": [
+          "x x x x x x _ x x x x x x",
+          "x x x x x x _ x x x x x x",
+          "x x x x x x _ x x x x x x",
+          "x x x x x x _ x x x x x x",
+          "_ _ x x x x _ x x x x _ _"
+  ]
+}
+qmk:json:end
+*/
+
 #include "keycodes.h"
 #include QMK_KEYBOARD_H
+
+enum {
+    TD_SEMIC,
+};
+
+// Tap Dance definitions
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_SEMIC] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, LSFT(KC_SCLN)),
+};
 
 enum layer_names {
     _BASE,
@@ -42,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BASE] = LAYOUT(
   _______ , KC_1 , KC_2    , KC_3    , KC_4      , KC_5    ,                            KC_6     , KC_7     , KC_8    , KC_9    , KC_0    , _______ ,
-  _______ , KC_Q , KC_W    , KC_F    , KC_P      , BMM_B   ,                            BMM_J    , KC_L     , KC_U    , KC_Y    , KC_SCLN , _______ ,
+  _______ , KC_Q , KC_W    , KC_F    , KC_P      , BMM_B   ,                            BMM_J    , KC_L     , KC_U    , KC_Y    , TD(TD_SEMIC) , _______ ,
   _______ , KC_A , KC_R    , BMM_S   , BMM_T     , BMM_G   ,                            BMM_M    , BMM_N    , BMM_E   , KC_I    , KC_O    , _______ ,
   _______ , KC_Z , KC_X    , KC_C    , KC_D      , BMM_V   , KC_KB_MUTE ,     RGB_TOG , BMM_K    , KC_H     , KC_COMM , KC_DOT  , KC_SLSH , _______ ,
                    KC_TRNS , KC_LEFT , BMM_RIGHT , BMM_SPC ,                            BMM_BSPC , BMM_DOWN , KC_UP   , KC_TRNS
@@ -107,17 +130,3 @@ combo_t key_combos[] = {
     [QWERTY] = COMBO(qwerty_combo, TG(_QWERTY))
 };
 // clang-format on
-
-/*
-qmk:json:start
-{
-  "layout": [
-          "x x x x x x _ x x x x x x",
-          "x x x x x x _ x x x x x x",
-          "x x x x x x _ x x x x x x",
-          "x x x x x x _ x x x x x x",
-          "_ _ x x x x _ x x x x _ _"
-  ]
-}
-qmk:json:end
-*/
