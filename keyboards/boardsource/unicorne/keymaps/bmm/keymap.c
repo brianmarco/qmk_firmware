@@ -65,9 +65,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                      │ left  │ BMM_RIGHT │ BMM_SPC │   │ BMM_BSPC │ BMM_DOWN │  up   │
 //                      └───────┴───────────┴─────────┘   └──────────┴──────────┴───────┘
 [_BASE] = LAYOUT_split_3x6_3(
-  KC_TAB  , KC_Q , KC_W , KC_F    , KC_P      , BMM_B   ,     BMM_J    , KC_L     , KC_U    , KC_Y   , KC_SCLN , KC_BSLS,
-  QK_GESC , KC_A , KC_R , BMM_S   , BMM_T     , BMM_G   ,     BMM_M    , BMM_N    , BMM_E   , KC_I   , KC_O    , KC_ENT ,
-  KC_EQL  , KC_Z , KC_X , KC_C    , KC_D      , BMM_V   ,     BMM_K    , KC_H     , KC_COMM , KC_DOT , KC_SLSH , KC_MINS,
+  _______  , KC_Q , KC_W , KC_F    , KC_P      , BMM_B   ,     BMM_J    , KC_L     , KC_U    , KC_Y   , KC_SCLN , _______,
+  _______ , KC_A , KC_R , BMM_S   , BMM_T     , BMM_G   ,     BMM_M    , BMM_N    , BMM_E   , KC_I   , KC_O    , _______ ,
+  _______  , KC_Z , KC_X , KC_C    , KC_D      , BMM_V   ,     BMM_K    , KC_H     , KC_COMM , KC_DOT , KC_SLSH , _______,
                           KC_LEFT , BMM_RIGHT , BMM_SPC ,     BMM_BSPC , BMM_DOWN , KC_UP
 ),
 
@@ -129,67 +129,63 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                      │ left │ BMM_RIGHT │ spc │   │ bspc │ BMM_DOWN │ up │
 //                      └──────┴───────────┴─────┘   └──────┴──────────┴────┘
 [_QWERTY] = LAYOUT_split_3x6_3(
-  KC_TAB  , KC_Q , KC_W , KC_E    , KC_R      , KC_T   ,     KC_Y    , KC_U     , KC_I    , KC_O   , KC_P    , KC_BSLS,
-  QK_GESC , KC_A , KC_S , KC_D    , KC_F      , KC_G   ,     KC_H    , KC_J     , KC_L    , KC_L   , KC_SCLN , KC_QUOT,
-  KC_LSFT , KC_Z , KC_X , KC_C    , KC_V      , KC_B   ,     KC_N    , KC_M     , KC_COMM , KC_DOT , KC_SLSH , KC_RSFT,
+  _______ , KC_Q , KC_W , KC_E    , KC_R      , KC_T   ,     KC_Y    , KC_U     , KC_I    , KC_O   , KC_P    , _______,
+  _______ , KC_A , KC_S , KC_D    , KC_F      , KC_G   ,     KC_H    , KC_J     , KC_L    , KC_L   , KC_SCLN , _______,
+  _______ , KC_Z , KC_X , KC_C    , KC_V      , KC_B   ,     KC_N    , KC_M     , KC_COMM , KC_DOT , KC_SLSH , _______,
                           KC_LEFT , BMM_RIGHT , KC_SPC ,     KC_BSPC , BMM_DOWN , KC_UP
 )
 };
 
-void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  // debug_enable=true;
-  // debug_matrix=true;
-  //debug_keyboard=true;
-  //debug_mouse=true;
-}
-
-#ifdef COMBO_ENABLE
-const uint16_t PROGMEM tab_combo[] = {KC_F, KC_P, COMBO_END};
+const uint16_t PROGMEM tab_combo[]         = {KC_F, KC_P, COMBO_END};
 const uint16_t PROGMEM tmux_leader_combo[] = {KC_L, KC_U, COMBO_END};
-const uint16_t PROGMEM esc_combo[] = {BMM_S, BMM_T, COMBO_END};
-const uint16_t PROGMEM enter_combo[] = {BMM_N, BMM_E, COMBO_END};
-const uint16_t PROGMEM eq_combo[] = {KC_C, KC_D, COMBO_END};
-const uint16_t PROGMEM mins_combo[] = {KC_H, KC_COMM, COMBO_END};
-const uint16_t PROGMEM qwerty_combo[] = {KC_LEFT, KC_UP, COMBO_END};
+const uint16_t PROGMEM esc_combo[]         = {BMM_S, BMM_T, COMBO_END};
+const uint16_t PROGMEM enter_combo[]       = {BMM_N, BMM_E, COMBO_END};
+const uint16_t PROGMEM eq_combo[]          = {KC_C, KC_D, COMBO_END};
+const uint16_t PROGMEM mins_combo[]        = {KC_H, KC_COMM, COMBO_END};
+const uint16_t PROGMEM qwerty_combo[]      = {KC_LEFT, KC_UP, COMBO_END};
 
 combo_t key_combos[] = {
-    [TAB] = COMBO(tab_combo, KC_TAB),
-    [TMUX_LEADER] = COMBO(tmux_leader_combo, BMM_KC_TMUX_LEADER),
-    [ESC] = COMBO(esc_combo, KC_ESC),
-    [ENTER] = COMBO(enter_combo, KC_ENT),
-    [EQ] = COMBO(eq_combo, KC_EQL),
-    [MINS] = COMBO(mins_combo, KC_MINS),
-    [QWERTY] = COMBO(qwerty_combo, TG(_QWERTY))
+  [TAB] = COMBO(tab_combo, KC_TAB),
+  [TMUX_LEADER] = COMBO(tmux_leader_combo, BMM_KC_TMUX_LEADER),
+  [ESC] = COMBO(esc_combo, KC_ESC),
+  [ENTER] = COMBO(enter_combo, KC_ENT),
+  [EQ] = COMBO(eq_combo, KC_EQL),
+  [MINS] = COMBO(mins_combo, KC_MINS),
+  [QWERTY] = COMBO(qwerty_combo, TG(_QWERTY))
 };
-#endif
 
-float qwerty_song[][2] = SONG(QWERTY_SOUND);
-float colemak_song[][2] = SONG(COLEMAK_SOUND);
-layer_state_t previous_layer = _BASE;
+// clang-format on
+
+void keyboard_post_init_user(void) {
+    // Customise these values to desired behaviour
+    // debug_enable=true;
+    // debug_matrix=true;
+    // debug_keyboard=true;
+    // debug_mouse=true;
+}
+
+float         qwerty_song[][2]  = SONG(QWERTY_SOUND);
+float         colemak_song[][2] = SONG(COLEMAK_SOUND);
+layer_state_t previous_layer    = _BASE;
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     layer_state_t new_layer = get_highest_layer(state);
 
     switch (new_layer) {
-    case _QWERTY:
-#ifdef AUDIO_ENABLE
-      PLAY_SONG(qwerty_song);
-#endif
-      break;
-    case _BASE:
-      if (previous_layer == _QWERTY) {
-#ifdef AUDIO_ENABLE
-        PLAY_SONG(colemak_song);
-#endif
-      }
-      break;
-    default:
-        break;
+        case _QWERTY:
+            PLAY_SONG(qwerty_song);
+            break;
+        case _BASE:
+            if (previous_layer == _QWERTY) {
+                PLAY_SONG(colemak_song);
+            }
+            break;
+        default:
+            break;
     }
 
-  previous_layer = new_layer;
-  return state;
+    previous_layer = new_layer;
+    return state;
 }
 
 // mouse_xy_report_t prev_x;
@@ -222,3 +218,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 //
 //     return mouse_report;
 // }
+
+/*
+qmk:json:start
+{
+  "name": "Unicorne",
+  "variant": "qmk",
+  "layout": [
+    "x x x x x x _ x x x x x x",
+    "x x x x x x _ x x x x x x",
+    "x x x x x x _ x x x x x x",
+    "_ _ _ x x x _ x x x _ _ _"
+  ]
+}
+qmk:json:end
+*/
